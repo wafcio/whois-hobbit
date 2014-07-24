@@ -1,9 +1,3 @@
 require_relative 'config/application'
 
-desc 'Start a console'
-task :console do
-  require 'pry'
-
-  ARGV.clear
-  Pry.start
-end
+Dir.glob(File.join(Whois.root, 'lib', 'tasks', '*.rake')).each { |file| import file }
