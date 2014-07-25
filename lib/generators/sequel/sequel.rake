@@ -32,6 +32,7 @@ namespace :generate do
   task :model, [:name] do |t, args|
     if args[:name]
       # model class
+      name = args[:name]
       template = ERB.new(File.new(File.join(template_dir, 'model.rb.erb')).read, nil, "%").result(binding)
 
       filename = "#{args[:name].underscore}.rb"
@@ -40,7 +41,6 @@ namespace :generate do
       end
 
       # migration file
-      name = args[:name]
       table_name = name.underscore.pluralize
       template = ERB.new(File.new(File.join(template_dir, 'model_migration.rb.erb')).read, nil, "%").result(binding)
 
