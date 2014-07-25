@@ -1,0 +1,8 @@
+ class Create<%= name %> < Sequel::Migration
+  def change
+    create_table(:<%= table_name %>) do
+      primary_key :id
+
+    end
+  end
+end

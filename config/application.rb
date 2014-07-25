@@ -1,4 +1,5 @@
 require 'hobbit'
+require 'sequel'
 
 ENV['RACK_ENV'] ||= 'development'
 

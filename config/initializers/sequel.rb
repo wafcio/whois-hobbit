@@ -1,0 +1,1 @@
+DB = Sequel.sqlite(File.join(Whois.root, 'db', "#{Whois.env}.sqlite3"))
