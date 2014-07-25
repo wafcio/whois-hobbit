@@ -17,7 +17,6 @@ namespace :generate do
   desc 'Generate a new migration'
   task :migration, [:name] do |t, args|
     if args[:name]
-      name = args[:name]
       template = ERB.new(File.new(File.join(template_dir, 'migration.rb.erb')).read, nil, "%").result(binding)
 
       filename = "#{timestamp}_#{args[:name].underscore}.rb"
@@ -33,7 +32,6 @@ namespace :generate do
   task :model, [:name] do |t, args|
     if args[:name]
       # model class
-      name = args[:name]
       template = ERB.new(File.new(File.join(template_dir, 'model.rb.erb')).read, nil, "%").result(binding)
 
       filename = "#{args[:name].underscore}.rb"
@@ -46,7 +44,7 @@ namespace :generate do
       table_name = name.underscore.pluralize
       template = ERB.new(File.new(File.join(template_dir, 'model_migration.rb.erb')).read, nil, "%").result(binding)
 
-      filename = "#{timestamp}_create_#{name}.rb"
+      filename = "#{timestamp}_create_#{name.underscore}.rb"
       File.open(File.join(migration_dir, filename), 'w') do |file|
         file.write(template)
       end
