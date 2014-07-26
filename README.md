@@ -1,6 +1,9 @@
 # Rake Tasks
 
 <pre>
+rake assets                    # Compile assets
+rake clean_assets              # Clean old assets
+rake clobber_assets            # Remove all assets
 rake console                   # Start a console
 rake generate:migration[name]  # Generate a new migration
 rake generate:model[name]      # Generate a new model
