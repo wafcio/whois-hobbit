@@ -11,3 +11,9 @@ gem 'activesupport'
 group :development do
   gem 'rake'
 end
+
+group :test do
+  gem 'minitest', require: 'minitest/autorun'
+  gem 'rack-test', require: 'rack/test'
+  gem 'fabrication'
+end

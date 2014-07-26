@@ -1,6 +1,7 @@
 require 'hobbit'
 require 'sequel'
 require 'sqlite3'
+require 'whois'
 
 ENV['RACK_ENV'] ||= 'development'
 
