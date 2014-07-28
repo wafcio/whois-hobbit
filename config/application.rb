@@ -1,12 +1,17 @@
 require 'hobbit'
 require 'hobbit/render'
+require 'hobbit/session'
+require 'rack/protection'
+require 'securerandom'
 require_relative 'load'
-
-ENV['RACK_ENV'] ||= 'development'
 
 module Whois
   class Application < Hobbit::Base
     Dir[File.join(Whois.root, 'app', 'controllers', '**/*.rb')].each { |file| require File.expand_path(file) }
+
+    use Rack::Session::Cookie, secret: SecureRandom.hex(64)
+    use Rack::Protection, except: :http_origin
+    use Rack::MethodOverride
 
     map '/assets' do
       environment = Sprockets::Environment.new
@@ -17,5 +22,6 @@ module Whois
     end
 
     map('/') { run RootController.new }
+    map('/domains') { run DomainsController.new }
   end
 end

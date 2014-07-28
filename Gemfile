@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'hobbit'
 gem 'hobbit-contrib', github: 'wafcio/hobbit-contrib'
+gem 'rack-protection'
 gem 'thin'
 gem 'simpleconfig'
 gem 'sequel'

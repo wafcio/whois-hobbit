@@ -4,10 +4,20 @@ class Whois::RootController < Whois::ApplicationController
   end
 
   get '/' do
-    response.redirect '/login'
+    response.redirect(current_user ? '/domains' : '/login')
   end
 
   get '/login' do
     render 'sessions/new', {}, layout: false
+  end
+
+  post '/session' do
+    user = User.find(email: request.params['email'])
+    if user && user.authenticate(request.params['password'])
+      session[:user_id] = user.id
+      response.redirect '/'
+    else
+      render 'sessions/new', {}, layout: false
+    end
   end
 end

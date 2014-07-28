@@ -34,6 +34,8 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     rack (1.5.2)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.2)
       rack (>= 1.0)
     rake (10.3.2)
@@ -72,6 +74,7 @@ DEPENDENCIES
   hobbit-contrib!
   minitest
   pry
+  rack-protection
   rack-test
   rake
   sass

@@ -9,7 +9,7 @@ module Whois
   end
 
   def self.env
-    ENV['RACK_ENV']
+    ENV['RACK_ENV'] || 'development'
   end
 end
 

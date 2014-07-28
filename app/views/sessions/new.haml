@@ -17,10 +17,10 @@
             .panel-heading
               %h3.panel-title Please Sign In
             .panel-body
-              %form{ role: 'form' }
+              %form{ action: '/session', method: 'post', role: 'form' }
                 %fieldset
                   .form-group
                     %input.form-control{ autofocus: '', name: 'email', placeholder: 'E-mail', type: 'email' }
                   .form-group
                     %input.form-control{ name: 'password', placeholder: 'Password', type: 'password', value: '' }
-                  %a.btn.btn-lg.btn-success.btn-block{ href: 'index.html' } Login
+                  %input.btn.btn-lg.btn-success.btn-block{ type: 'submit', value: 'Login' }

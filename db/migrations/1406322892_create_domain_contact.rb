@@ -1,7 +1,8 @@
 Sequel.migration do
   change do
     create_table(:domain_contacts) do
-      String :id, primary_key: true
+      primary_key :id
+      String :external_id
       Integer :domain_id
       String :type
       String :name

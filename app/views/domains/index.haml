@@ -1,0 +1,23 @@
+.container
+  .row
+    .col-sm-12.col-md-10.col-md-offset-1
+      %a.btn.btn-success{ href: '/domains/new' }
+        Add Domain
+  .row
+    .col-sm-12.col-md-10.col-md-offset-1
+      %table.table.table-hover
+        %thead
+          %tr
+            %th Domain
+            %th.text-center Expire date
+            %th  
+        %tbody
+          - @domains.each do |domain|
+            %tr
+              %td.col-sm-8.col-md-6
+                %h4= domain.name
+              %td.col-sm-2.col-md-4.text-center
+                %strong= domain.expires_on
+              %td.col-sm-2.col-md-2
+                %a.btn.btn-danger{ href: "/domains/#{domain.id}", 'data-method' => 'delete' }
+                  Remove

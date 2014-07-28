@@ -1,7 +1,8 @@
 Sequel.migration do
   change do
     create_table(:domain_contacts) do
-      column :id, "varchar(255)", :null=>false
+      primary_key :id
+      column :external_id, "varchar(255)"
       column :domain_id, "integer"
       column :type, "varchar(255)"
       column :name, "varchar(255)"
@@ -18,8 +19,6 @@ Sequel.migration do
       column :url, "varchar(255)"
       column :created_on, "timestamp"
       column :updated_on, "timestamp"
-      
-      primary_key [:id]
     end
     
     create_table(:domain_nameservers) do
@@ -31,13 +30,12 @@ Sequel.migration do
     end
     
     create_table(:domain_registrars) do
-      column :id, "varchar(255)", :null=>false
+      primary_key :id
+      column :external_id, "varchar(255)"
       column :domain_id, "integer"
       column :name, "varchar(255)"
       column :organization, "varchar(255)"
       column :url, "varchar(255)"
-      
-      primary_key [:id]
     end
     
     create_table(:domains) do
