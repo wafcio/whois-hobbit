@@ -31,7 +31,11 @@
                   %td.text-center
                     = domain.expires_on
                   %td.col-sm-2.col-md-3
+                    %a.btn.btn-default{ href: "http://#{domain.name}", target: '_blank' }
+                      %i.fa.fa-eye.fa-fw
+                    %a.btn.btn-default{ href: "/domains/#{domain.id}" }
+                      %i.fa.fa-info.fa-fw
                     %a.btn.btn-default{ href: "/domains/#{domain.id}/refresh" }
-                      Refresh
+                      %i.fa.fa-refresh.fa-fw
                     %a.btn.btn-danger{ href: "/domains/#{domain.id}", 'data-method' => 'delete', 'data-confirm' => "Are you sure to remove #{domain.name} domain ?" }
-                      Remove
+                      %i.fa.fa-times.fa-fw

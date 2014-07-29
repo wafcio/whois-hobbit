@@ -32,6 +32,14 @@ class Whois::DomainsController < Whois::ApplicationController
     end
   end
 
+  get '/:id' do
+    authenticate
+    unless response.status == 302
+      @domain = Domain.find(id: request.params[:id], user_id: current_user.id)
+      render 'show'
+    end
+  end
+
   delete '/:id' do
     authenticate
     unless response.status == 302
