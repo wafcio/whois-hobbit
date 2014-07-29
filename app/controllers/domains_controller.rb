@@ -6,7 +6,7 @@ class Whois::DomainsController < Whois::ApplicationController
   get '/' do
     authenticate
     unless response.status == 302
-      @domains = current_user.domains
+      @domains = Domain.where(user_id: current_user.id).order(:expires_on)
       render 'index'
     end
   end
@@ -37,6 +37,15 @@ class Whois::DomainsController < Whois::ApplicationController
     unless response.status == 302
       domain = Domain.find(id: request.params[:id], user_id: current_user.id)
       domain.delete if domain
+      response.redirect '/domains'
+    end
+  end
+
+  get '/:id/refresh' do
+    authenticate
+    unless response.status == 302
+      domain = Domain.find(id: request.params[:id], user_id: current_user.id)
+      domain.update_whois
       response.redirect '/domains'
     end
   end

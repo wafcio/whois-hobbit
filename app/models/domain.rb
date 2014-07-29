@@ -26,9 +26,15 @@ class Domain < Sequel::Model
   end
 
   def update_whois
-    self.set(server: whois.server.host, status: whois.status, is_available: whois.available?,
+    data = { server: whois.server.host, status: whois.status, is_available: whois.available?,
       is_registered: whois.registered?, content: whois.content, created_on: whois.created_on,
-      updated_on: whois.updated_on, expires_on: whois.expires_on)
+      updated_on: whois.updated_on, expires_on: whois.expires_on }
+
+    if data[:status].is_a?(Array)
+      data[:status] = data[:status].join(', ')
+    end
+
+    self.set(data)
     save
 
     DomainContact.where(domain_id: id).delete

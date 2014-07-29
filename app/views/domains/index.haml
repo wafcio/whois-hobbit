@@ -9,15 +9,23 @@
         %thead
           %tr
             %th Domain
+            %th.text-center Create date
+            %th.text-center Update date
             %th.text-center Expire date
             %th  
         %tbody
           - @domains.each do |domain|
             %tr
-              %td.col-sm-8.col-md-6
+              %td.col-sm-6.col-md-4
                 %h4= domain.name
-              %td.col-sm-2.col-md-4.text-center
+              %td.text-center
+                %strong= domain.created_on
+              %td.text-center
+                %strong= domain.updated_on
+              %td.text-center
                 %strong= domain.expires_on
-              %td.col-sm-2.col-md-2
+              %td.col-sm-2.col-md-3
+                %a.btn.btn-default{ href: "/domains/#{domain.id}/refresh" }
+                  Refresh
                 %a.btn.btn-danger{ href: "/domains/#{domain.id}", 'data-method' => 'delete' }
                   Remove
