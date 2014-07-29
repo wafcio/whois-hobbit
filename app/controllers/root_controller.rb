@@ -11,6 +11,11 @@ class Whois::RootController < Whois::ApplicationController
     render 'sessions/new', {}, layout: false
   end
 
+  get '/logout' do
+    session[:user_id] = nil
+    response.redirect '/login'
+  end
+
   post '/session' do
     user = User.find(email: request.params['email'])
     if user && user.authenticate(request.params['password'])

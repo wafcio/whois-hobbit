@@ -1,31 +1,37 @@
-.container
-  .row
-    .col-sm-12.col-md-10.col-md-offset-1
+.row
+  .col-lg-12
+    %p
+    %p
       %a.btn.btn-success{ href: '/domains/new' }
         Add Domain
-  .row
-    .col-sm-12.col-md-10.col-md-offset-1
-      %table.table.table-hover
-        %thead
-          %tr
-            %th Domain
-            %th.text-center Create date
-            %th.text-center Update date
-            %th.text-center Expire date
-            %th  
-        %tbody
-          - @domains.each do |domain|
-            %tr
-              %td.col-sm-6.col-md-4
-                %h4= domain.name
-              %td.text-center
-                %strong= domain.created_on
-              %td.text-center
-                %strong= domain.updated_on
-              %td.text-center
-                %strong= domain.expires_on
-              %td.col-sm-2.col-md-3
-                %a.btn.btn-default{ href: "/domains/#{domain.id}/refresh" }
-                  Refresh
-                %a.btn.btn-danger{ href: "/domains/#{domain.id}", 'data-method' => 'delete' }
-                  Remove
+.row
+  .col-lg-12
+    .panel.panel-default
+      .panel-heading
+        Domains
+      .panel-body
+        .table-responsive
+          %table#dataTables-example.table.table-striped.table-bordered.table-hover
+            %thead
+              %tr
+                %th Domain
+                %th.text-center Create date
+                %th.text-center Update date
+                %th.text-center Expire date
+                %th
+            %tbody
+              - @domains.each do |domain|
+                %tr
+                  %td.col-sm-6.col-md-4
+                    = domain.name
+                  %td.text-center
+                    = domain.created_on
+                  %td.text-center
+                    = domain.updated_on
+                  %td.text-center
+                    = domain.expires_on
+                  %td.col-sm-2.col-md-3
+                    %a.btn.btn-default{ href: "/domains/#{domain.id}/refresh" }
+                      Refresh
+                    %a.btn.btn-danger{ href: "/domains/#{domain.id}", 'data-method' => 'delete', 'data-confirm' => "Are you sure to remove #{domain.name} domain ?" }
+                      Remove

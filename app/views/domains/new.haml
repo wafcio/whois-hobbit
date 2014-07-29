@@ -1,11 +1,17 @@
-.container
-  .row
-    .col-sm-12
-      %form{ action: '/domains', method: 'post', role: 'form' }
-        .form-group
-          %label{ for: 'domain' } Domain
-          %input#domain.form-control{ name: 'domain', placeholder: 'Enter domain address', type: 'text', value: @domain.name }
-          - if @domain.errors[:name]
-            %p.help-block= @domain.errors[:name].join(', ')
-        %button.btn.btn-success{ type: 'submit' } Submit
-        %a.btn.btn-default{ href: '/domains' } Back
+.row
+  .col-lg-12
+    %p
+    .panel.panel-default
+      .panel-heading
+        New domain
+      .panel-body
+        .row
+          .col-lg-12
+            %form{ action: '/domains', method: 'post', role: 'form' }
+              .form-group
+                %label{ for: 'domain' } Domain
+                %input#domain.form-control{ name: 'domain', placeholder: 'Enter domain address', type: 'text', value: @domain.name }
+                - if @domain.errors[:name]
+                  %p.help-block= @domain.errors[:name].join(', ')
+              %button.btn.btn-success{ type: 'submit' } Submit
+              %a.btn.btn-default{ href: '/domains' } Back

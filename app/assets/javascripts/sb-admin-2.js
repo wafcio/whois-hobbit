@@ -26,3 +26,10 @@ $(function() {
         }
     })
 })
+
+$(document).ready(function() {
+    $('#dataTables-example').dataTable({
+        'order': [ 3, 'asc' ],
+        'paging': false
+    });
+});
