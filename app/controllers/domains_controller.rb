@@ -1,3 +1,5 @@
+require_relative 'application_controller'
+
 class Whois::DomainsController < Whois::ApplicationController
   def views_path
     'app/views/domains'

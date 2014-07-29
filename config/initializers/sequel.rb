@@ -1,1 +1,1 @@
-DB = Sequel.sqlite(File.join(Whois.root, 'db', "#{Whois.env}.sqlite3"))
+DB = Sequel.connect(ENV['DATABASE_URL'] || AppConfig.database)

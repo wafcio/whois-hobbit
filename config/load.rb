@@ -1,7 +1,11 @@
 require 'sequel'
-require 'sqlite3'
+require 'pg'
 require 'sprockets'
 require 'whois'
+
+if ENV['RACK_ENV'] == 'development'
+  require 'sqlite3'
+end
 
 module Whois
   def self.root

@@ -1,3 +1,9 @@
+# Heroku Demo
+
+http://whois-hobbit.herokuapp.com
+
+If you want get access for this site, please let me know, because app doesn't have user registration (yet).
+
 # Rake Tasks
 
 <pre>

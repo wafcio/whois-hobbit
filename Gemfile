@@ -1,15 +1,18 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
+
 gem 'hobbit'
 gem 'hobbit-contrib', github: 'wafcio/hobbit-contrib'
 gem 'rack-protection'
 gem 'thin'
 gem 'simpleconfig'
 gem 'sequel'
+gem 'pg'
 gem 'pry'
-gem 'sqlite3'
 gem 'activesupport'
 gem 'whois'
+gem 'foreman'
 
 gem 'sprockets', '~> 2.12.1'
 gem 'uglifier'
@@ -20,6 +23,7 @@ gem 'haml'
 
 group :development do
   gem 'rake'
+  gem 'sqlite3'
 end
 
 group :test do
