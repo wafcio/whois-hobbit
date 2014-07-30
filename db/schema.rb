@@ -64,6 +64,10 @@ Sequel.migration do
       column :password_digest, "varchar(255)"
       column :created_at, "timestamp"
       column :updated_at, "timestamp"
+      column :github_uid, "varchar(255)"
+      
+      index [:email], :unique=>true
+      index [:github_uid], :unique=>true
     end
   end
 end

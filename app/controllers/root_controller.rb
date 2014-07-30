@@ -6,16 +6,16 @@ class Whois::RootController < Whois::ApplicationController
   end
 
   get '/' do
-    response.redirect(current_user ? '/domains' : '/login')
+    response.redirect(current_user ? '/domains' : '/sign_in')
   end
 
-  get '/login' do
+  get '/sign_in' do
     render 'sessions/new', {}, layout: false
   end
 
   get '/logout' do
     session[:user_id] = nil
-    response.redirect '/login'
+    response.redirect '/sign_in'
   end
 
   post '/session' do
@@ -26,5 +26,15 @@ class Whois::RootController < Whois::ApplicationController
     else
       render 'sessions/new', {}, layout: false
     end
+  end
+
+  get '/auth/:provider/callback' do
+    omniauth_user = OmniauthUser.new(request.env['omniauth.auth'])
+    session[:user_id] = omniauth_user.user.id
+    response.redirect '/'
+  end
+
+  get '/auth/failure' do
+    response.redirect '/'
   end
 end

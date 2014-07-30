@@ -19,3 +19,4 @@ end
 
 Dir[File.join(Whois.root, 'config', 'initializers', '**/*.rb')].each { |file| require File.expand_path(file) }
 Dir[File.join(Whois.root, 'app', 'models', '**/*.rb')].each { |file| require File.expand_path(file) }
+Dir[File.join(Whois.root, 'app', 'services', '**/*.rb')].each { |file| require File.expand_path(file) }

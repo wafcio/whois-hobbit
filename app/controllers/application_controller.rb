@@ -16,7 +16,7 @@ class Whois::ApplicationController < Whois::Application
 
   def authenticate
     unless current_user
-      response.redirect '/login'
+      response.redirect '/sign_in'
     end
   end
 end

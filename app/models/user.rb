@@ -7,12 +7,12 @@ class User < Sequel::Model
   attr_accessor :password, :password_confirmation
 
   def validate
-    super 
+    super
     validates_unique :email
     validates_length_range 5..50, :email
     validates_format /\A[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}\z/i, :email, message: 'is invalid'
 
-    validate_password
+    validate_password if new?
   end
 
   def authenticate(password)
