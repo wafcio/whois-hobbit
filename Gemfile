@@ -15,7 +15,7 @@ gem 'whois'
 gem 'foreman'
 gem 'omniauth'
 gem 'omniauth-github'
-gem 'omniauth-google-oauth2'
+gem 'domain_name_validator'
 
 gem 'sprockets', '~> 2.12.1'
 gem 'uglifier'

@@ -1,3 +1,5 @@
+require 'domain_name_validator'
+
 class Domain < Sequel::Model
   plugin :validation_helpers
 
@@ -10,6 +12,7 @@ class Domain < Sequel::Model
     super
 
     validates_presence [:user, :name]
+    validate_domain_name
   end
 
   def after_create
@@ -60,5 +63,13 @@ class Domain < Sequel::Model
 
   def whois
     @whois ||= Whois.whois(name)
+  end
+
+  private
+
+  def validate_domain_name
+    if name && !DomainNameValidator.new.validate(name)
+      errors.add(:name, 'is invalid')
+    end
   end
 end

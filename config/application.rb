@@ -5,7 +5,6 @@ require 'rack/protection'
 require 'securerandom'
 require 'omniauth'
 require 'omniauth-github'
-require 'omniauth-google-oauth2'
 
 require_relative 'load'
 

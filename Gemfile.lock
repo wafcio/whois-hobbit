@@ -16,6 +16,7 @@ GEM
       tzinfo (~> 1.1)
     coderay (1.1.0)
     daemons (1.1.9)
+    domain_name_validator (0.5)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
@@ -51,9 +52,6 @@ GEM
       hashie (>= 1.2, < 3)
       rack (~> 1.0)
     omniauth-github (1.1.1)
-      omniauth (~> 1.0)
-      omniauth-oauth2 (~> 1.1)
-    omniauth-google-oauth2 (0.2.4)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
     omniauth-oauth2 (1.1.2)
@@ -102,6 +100,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  domain_name_validator
   fabrication
   foreman
   haml
@@ -110,7 +109,6 @@ DEPENDENCIES
   minitest
   omniauth
   omniauth-github
-  omniauth-google-oauth2
   pg
   pry
   rack-protection
