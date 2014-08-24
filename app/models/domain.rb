@@ -12,6 +12,10 @@ class Domain < Sequel::Model
     super
 
     validates_presence [:user, :name]
+    validates_unique :name, where: (proc do |ds, record, arr|
+      ds.where(user_id: record.user_id)
+    end)
+    
     validate_domain_name
   end
 
