@@ -1,5 +1,5 @@
 SimpleConfig.for :application do
-  set :sprocktes, {
+  set :sprockets, {
     path: [
       'app/assets',
       'vendor/assets/bower_components',

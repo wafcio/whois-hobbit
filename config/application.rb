@@ -1,6 +1,8 @@
 require 'hobbit'
 require 'hobbit/render'
 require 'hobbit/session'
+require 'hobbit/session'
+require 'hobbit/filter'
 require 'rack/protection'
 require 'securerandom'
 require 'omniauth'
@@ -21,11 +23,7 @@ module Whois
     end
 
     map '/assets' do
-      environment = Sprockets::Environment.new
-      AppConfig.sprocktes[:path].each do |path|
-        environment.append_path(path)
-      end
-      run environment
+      run SprocketsEnvironment.new.environment
     end
 
     map('/') { run RootController.new }

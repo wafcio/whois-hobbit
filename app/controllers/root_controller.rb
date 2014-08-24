@@ -6,7 +6,7 @@ class Whois::RootController < Whois::ApplicationController
   end
 
   get '/' do
-    response.redirect(current_user ? '/domains' : '/sign_in')
+    response.redirect(redirect_on_root)
   end
 
   get '/sign_in' do
@@ -19,22 +19,47 @@ class Whois::RootController < Whois::ApplicationController
   end
 
   post '/session' do
-    user = User.find(email: request.params['email'])
-    if user && user.authenticate(request.params['password'])
-      session[:user_id] = user.id
-      response.redirect '/'
+    if authenticate
+      redirect_to_root
     else
-      render 'sessions/new', {}, layout: false
+      render_sessions_new
     end
   end
 
   get '/auth/:provider/callback' do
-    omniauth_user = OmniauthUser.new(request.env['omniauth.auth'])
-    session[:user_id] = omniauth_user.user.id
-    response.redirect '/'
+    session[:user_id] = omniauth_user.id
+    redirect_to_root
   end
 
   get '/auth/failure' do
+    redirect_to_root
+  end
+
+  def redirect_on_root
+    current_user ? '/domains' : '/sign_in'
+  end
+
+  def omniauth_user
+    OmniauthUser.new(request.env['omniauth.auth']).user
+  end
+
+  def redirect_to_root
     response.redirect '/'
+  end
+
+  def authenticate
+    if condition = load_user_by_email && load_user_by_email.authenticate(request.params['password'])
+      session[:user_id] = load_user_by_email.id
+    end
+
+    condition
+  end
+
+  def load_user_by_email
+    @load_user_by_email ||= User.find(email: request.params['email'])
+  end
+
+  def render_session_new
+    render 'sessions/new', {}, layout: false
   end
 end

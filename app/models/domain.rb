@@ -21,48 +21,27 @@ class Domain < Sequel::Model
   end
 
   def delete
-    DomainContact.where(domain_id: id).delete
-    DomainNameserver.where(domain_id: id).delete
-    DomainRegistrar.where(domain_id: id).delete
+    delete_contacts
+    delete_nameservers
+    delete_registrars
 
     super
   end
 
   def update_whois
-    data = { server: whois.server.host, status: whois.status, is_available: whois.available?,
-      is_registered: whois.registered?, content: whois.content, created_on: whois.created_on,
-      updated_on: whois.updated_on, expires_on: whois.expires_on }
-
-    if data[:status].is_a?(Array)
-      data[:status] = data[:status].join(', ')
-    end
-
-    self.set(data)
+    set(whois_attributes)
     save
 
-    DomainContact.where(domain_id: id).delete
-    DomainNameserver.where(domain_id: id).delete
-    DomainRegistrar.where(domain_id: id).delete
-
-    whois.contacts.each do |contact|
-      contact_data = contact.to_h.merge(domain_id: id)
-      contact_data[:external_id] = contact_data.delete(:id)
-      DomainContact.create(contact_data)
-    end
-
-    whois.nameservers.each do |nameserver|
-      DomainNameserver.create(nameserver.to_h.merge(domain_id: id))
-    end
-
-    registrar_data = whois.registrar.to_h.merge(domain_id: id)
-    registrar_data[:external_id] = registrar_data.delete(:id)
-    DomainRegistrar.create(registrar_data)
+    update_contacts
+    update_nameservers
+    update_registrar
 
     self
   end
 
   def whois
-    @whois ||= Whois.whois(name)
+    @whois ||= {}
+    @whois[name] ||= Whois.whois(name)
   end
 
   private
@@ -71,5 +50,67 @@ class Domain < Sequel::Model
     if name && !DomainNameValidator.new.validate(name)
       errors.add(:name, 'is invalid')
     end
+  end
+
+  def whois_attributes
+    @whois_attributes ||= {}
+    @whois_attributes[name] ||= {
+      server: whois.server.host,
+      status: normalize_statuses(whois.status),
+      is_available: whois.available?,
+      is_registered: whois.registered?,
+      content: whois.content,
+      created_on: whois.created_on,
+      updated_on: whois.updated_on,
+      expires_on: whois.expires_on
+    }
+  end
+
+  def normalize_statuses(statuses)
+    statuses.is_a?(Array) ? statuses.join(', ') : statuses
+  end
+
+  def delete_contacts
+    DomainContact.where(domain_id: id).delete
+  end
+
+  def delete_nameservers
+    DomainNameserver.where(domain_id: id).delete
+  end
+
+  def delete_registrars
+    DomainRegistrar.where(domain_id: id).delete
+  end
+
+  def resource_data(data)
+    data = data.to_h.merge(domain_id: id)
+    data[:external_id] = data.delete(:id)
+    data
+  end
+
+  def nameserver_data(nameserver)
+    nameserver.to_h.merge(domain_id: id)
+  end
+
+  def update_contacts
+    delete_contacts
+
+    whois.contacts.each do |contact|
+      DomainContact.create(resource_data(contact))
+    end
+  end
+
+  def update_nameservers
+    delete_nameservers
+
+    whois.nameservers.each do |nameserver|
+      DomainNameserver.create(nameserver_data(nameserver))
+    end
+  end
+
+  def update_registrar
+    delete_registrars
+
+    DomainRegistrar.create(resource_data(whois.registrar))
   end
 end

@@ -5,58 +5,65 @@ class Whois::DomainsController < Whois::ApplicationController
     'app/views/domains'
   end
 
-  get '/' do
+  before do
     authenticate
-    unless response.status == 302
-      @domains = Domain.where(user_id: current_user.id).order(:expires_on)
-      render 'index'
-    end
+  end
+
+  get '/' do
+    @domains = load_all
+    render 'index'
   end
 
   get '/new' do
-    authenticate
-    unless response.status == 302
-      @domain = Domain.new(user: current_user)
-      render 'new'
-    end
+    @domain = build_domain
+    render_new
   end
 
   post '/' do
-    authenticate
-    unless response.status == 302
-      @domain = Domain.new(user: current_user, name: request.params['domain'])
-      if @domain.valid?
-        @domain.save
-        response.redirect '/domains'
-      else
-        render 'new'
-      end
+    if build_domain_and_save
+      redirect_to_list
+    else
+      render_new
     end
   end
 
   get '/:id' do
-    authenticate
-    unless response.status == 302
-      @domain = Domain.find(id: request.params[:id], user_id: current_user.id)
-      render 'show'
-    end
+    @domain = load_domain
+    render 'show'
   end
 
   delete '/:id' do
-    authenticate
-    unless response.status == 302
-      domain = Domain.find(id: request.params[:id], user_id: current_user.id)
-      domain.delete if domain
-      response.redirect '/domains'
-    end
+    load_domain.delete
+    redirect_to_list
   end
 
   get '/:id/refresh' do
-    authenticate
-    unless response.status == 302
-      domain = Domain.find(id: request.params[:id], user_id: current_user.id)
-      domain.update_whois
-      response.redirect '/domains'
-    end
+    load_domain.update_whois
+    redirect_to_list
+  end
+
+  def load_all
+    Domain.where(user_id: current_user.id).order(:expires_on)
+  end
+
+  def build_domain_and_save
+    @domain = build_domain(name: request.params['domain'])
+    @domain.save(raise_on_failure: false)
+  end
+
+  def redirect_to_list
+    response.redirect '/domains'
+  end
+
+  def render_new
+    render 'new'
+  end
+
+  def load_domain
+    Domain.find(id: request.params[:id], user_id: current_user.id)
+  end
+
+  def build_domain(attributes = {})
+    Domain.new(attributes.merge(user: current_user))
   end
 end
