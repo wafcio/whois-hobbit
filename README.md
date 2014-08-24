@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/wafcio/whois-hobbit/badges/gpa.svg)](https://codeclimate.com/github/wafcio/whois-hobbit)
+
 # Heroku Demo
 
 http://whois-hobbit.herokuapp.com
