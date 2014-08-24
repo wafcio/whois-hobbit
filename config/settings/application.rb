@@ -1,10 +1,10 @@
 SimpleConfig.for :application do
   set :sprocktes, {
     path: [
-      'app/assets/images',
-      'app/assets/javascripts',
-      'app/assets/stylesheets',
-      'app/assets/fonts'
+      'app/assets',
+      'vendor/assets/bower_components',
+      'vendor/assets/bower_components/bootstrap/dist',
+      'vendor/assets/bower_components/font-awesome'
     ],
     js_compressor: :uglify,
     css_compressor: :scss,

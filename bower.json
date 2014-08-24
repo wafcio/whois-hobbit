@@ -1,0 +1,12 @@
+{
+  "name": "whois",
+  "dependencies": {
+    "jquery": "2.1.1",
+    "jquery-ujs": "1.0.0",
+    "bootstrap": "3.2.0",
+    "bootstrap-social": "4.6.0",
+    "font-awesome": "4.1.0",
+    "metisMenu": "1.1.2",
+    "datatables": "1.10.2"
+  }
+}

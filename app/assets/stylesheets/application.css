@@ -1,8 +1,8 @@
 /*
  *= require bootstrap
- *= require metisMenu
- *= require font-awesome
- *= require dataTables.bootstrap
  *= require bootstrap-social
- *= require sb-admin-2
+ *= require font-awesome
+ *= require metisMenu
+ *= require ./dataTables.bootstrap
+ *= require ./sb-admin-2
  */

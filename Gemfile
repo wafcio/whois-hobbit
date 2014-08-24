@@ -22,6 +22,8 @@ gem 'uglifier'
 gem 'tilt', '~> 1.3.0'
 
 gem 'sass'
+gem 'less'
+gem 'therubyracer'
 gem 'haml'
 
 group :development do

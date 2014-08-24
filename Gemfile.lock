@@ -15,6 +15,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     coderay (1.1.0)
+    commonjs (0.2.7)
     daemons (1.1.9)
     domain_name_validator (0.5)
     dotenv (0.11.1)
@@ -37,6 +38,9 @@ GEM
     i18n (0.6.11)
     json (1.8.1)
     jwt (1.0.0)
+    less (2.5.1)
+      commonjs (~> 0.2.7)
+    libv8 (3.16.14.3)
     method_source (0.8.2)
     minitest (5.4.0)
     multi_json (1.10.1)
@@ -70,6 +74,7 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     rake (10.3.2)
+    ref (1.0.5)
     sass (3.3.10)
     sequel (4.12.0)
     simpleconfig (2.0.1)
@@ -80,6 +85,9 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.9)
+    therubyracer (0.12.1)
+      libv8 (~> 3.16.14.0)
+      ref
     thin (1.6.2)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -106,6 +114,7 @@ DEPENDENCIES
   haml
   hobbit
   hobbit-contrib!
+  less
   minitest
   omniauth
   omniauth-github
@@ -119,6 +128,7 @@ DEPENDENCIES
   simpleconfig
   sprockets (~> 2.12.1)
   sqlite3
+  therubyracer
   thin
   tilt (~> 1.3.0)
   uglifier
