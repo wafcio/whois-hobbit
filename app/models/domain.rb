@@ -3,7 +3,8 @@ require 'domain_name_validator'
 class Domain < Sequel::Model
   plugin :validation_helpers
 
-  many_to_one :user
+  one_to_many :user_domains
+  many_to_many :domains, join_table: :user_domains
   one_to_many :contacts, class: :DomainContact
   one_to_many :nameservers, class: :DomainNameserver
   one_to_one :registrar, class: :DomainRegistrar
@@ -11,10 +12,8 @@ class Domain < Sequel::Model
   def validate
     super
 
-    validates_presence [:user, :name]
-    validates_unique :name, where: (proc do |ds, record, arr|
-      ds.where(user_id: record.user_id)
-    end)
+    validates_presence [:name]
+    validates_unique :name
     
     validate_domain_name
   end

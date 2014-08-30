@@ -40,7 +40,6 @@ Sequel.migration do
     
     create_table(:domains) do
       primary_key :id
-      column :user_id, "integer"
       column :name, "varchar(255)"
       column :server, "varchar(255)"
       column :status, "varchar(255)"
@@ -56,6 +55,12 @@ Sequel.migration do
       column :filename, "varchar(255)", :null=>false
       
       primary_key [:filename]
+    end
+    
+    create_table(:user_domains) do
+      primary_key :id
+      column :user_id, "integer"
+      column :domain_id, "integer"
     end
     
     create_table(:users) do

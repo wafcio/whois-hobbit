@@ -33,7 +33,7 @@ class Whois::DomainsController < Whois::ApplicationController
   end
 
   delete '/:id' do
-    load_domain.delete
+    current_user.user_domains.where(domain_id: request.params[:id]).delete
     redirect_to_list
   end
 
@@ -43,12 +43,12 @@ class Whois::DomainsController < Whois::ApplicationController
   end
 
   def load_all
-    Domain.where(user_id: current_user.id).order(:expires_on)
+    current_user.domains.sort { |x,y| y.expires_on <=> x.expires_on }
   end
 
   def build_domain_and_save
-    @domain = build_domain(name: request.params['domain'])
-    @domain.save(raise_on_failure: false)
+    @domain = find_domain(request.params['domain']) || build_domain(name: request.params['domain']).save
+    current_user.domains << @domain
   end
 
   def redirect_to_list
@@ -60,7 +60,11 @@ class Whois::DomainsController < Whois::ApplicationController
   end
 
   def load_domain
-    Domain.find(id: request.params[:id], user_id: current_user.id)
+    current_user.domains.select{ |domain| domain.id == request.params[:id].to_i }.first
+  end
+
+  def find_domain(name)
+    Domain.where(name: name).first
   end
 
   def build_domain(attributes = {})

@@ -2,7 +2,8 @@ class User < Sequel::Model
   plugin :timestamps
   plugin :validation_helpers
 
-  one_to_many :domains
+  one_to_many :user_domains
+  many_to_many :domains, join_table: :user_domains
 
   attr_accessor :password, :password_confirmation
 
