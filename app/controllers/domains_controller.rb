@@ -33,7 +33,7 @@ class Whois::DomainsController < Whois::ApplicationController
   end
 
   delete '/:id' do
-    current_user.user_domains.where(domain_id: request.params[:id]).delete
+    UserDomain.where(domain_id: request.params[:id], user_id: current_user.id).delete
     redirect_to_list
   end
 
@@ -48,7 +48,7 @@ class Whois::DomainsController < Whois::ApplicationController
 
   def build_domain_and_save
     @domain = find_domain(request.params['domain']) || build_domain(name: request.params['domain']).save
-    current_user.domains << @domain
+    UserDomain.create(user_id: current_user.id, domain_id: @domain.id)
   end
 
   def redirect_to_list
@@ -68,6 +68,6 @@ class Whois::DomainsController < Whois::ApplicationController
   end
 
   def build_domain(attributes = {})
-    Domain.new(attributes.merge(user: current_user))
+    Domain.new(attributes)
   end
 end
