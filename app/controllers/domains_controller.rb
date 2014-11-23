@@ -43,7 +43,7 @@ class Whois::DomainsController < Whois::ApplicationController
   end
 
   def load_all
-    current_user.domains.sort { |x,y| y.expires_on <=> x.expires_on }
+    current_user.domains
   end
 
   def build_domain_and_save
