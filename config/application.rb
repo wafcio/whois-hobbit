@@ -2,10 +2,14 @@ require_relative 'environment'
 
 require 'hobbit'
 require 'hobbit/render'
+require 'rack/classy_assets'
 require 'haml'
+require 'sass'
 
 module Whois
   class Application < Hobbit::Base
+    use Rack::ClassyAssets
+
     include Hobbit::Render
 
     get '/' do
