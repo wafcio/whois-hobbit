@@ -1,3 +1,5 @@
+require_relative 'environment'
+
 require 'hobbit'
 
 module Whois
