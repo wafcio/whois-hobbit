@@ -3,27 +3,34 @@ GEM
   specs:
     coderay (1.1.0)
     daemons (1.1.9)
-    eventmachine (1.0.3)
+    eventmachine (1.0.7)
+    haml (4.0.6)
+      tilt
     hobbit (0.6.0)
       rack
+    hobbit-contrib (0.7.1)
+      hobbit
     method_source (0.8.2)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    rack (1.5.2)
-    rake (10.3.2)
+    rack (1.6.0)
+    rake (10.4.2)
     slop (3.6.0)
-    thin (1.6.2)
-      daemons (>= 1.0.9)
-      eventmachine (>= 1.0.0)
-      rack (>= 1.0.0)
+    thin (1.6.3)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0)
+      rack (~> 1.0)
+    tilt (2.0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  haml
   hobbit
+  hobbit-contrib
   pry
   rake
   thin
